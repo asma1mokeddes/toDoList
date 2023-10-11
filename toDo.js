@@ -36,17 +36,19 @@ class ToDo {
                 }
             } else {
                 const lastItem = this.items[this.items.length - 1];
-                const timeDifference =
-                    item.creationDate - lastItem.creationDate;
+                const timeDifference = (item.creationDate - lastItem.creationDate) / (1000 * 60);
 
-                if (timeDifference >= 30 * 60 * 1000) {
+                if (timeDifference >= 30 ) {
                     this.items.push(item);
-                } else {
-                    throw new Error("The 30 minute period was not respected.");
-                }
+                    if (this.items.length === 8) {
+                        emailSenderService.send();
+                    }
+                    return this.items;
+                } 
+                throw new Error("The 30 minute period was not respected.");  
             }
         } else {
-            throw new Error("Cannot add item");
+            throw new Error("Cannot add item.");
         }
     }
 }
