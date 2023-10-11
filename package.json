@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/asma1mokeddes/toDoList/issues"
   },
-  "homepage": "https://github.com/asma1mokeddes/toDoList#readme"
+  "homepage": "https://github.com/asma1mokeddes/toDoList#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
