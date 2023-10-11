@@ -1,3 +1,5 @@
+const emailValidator = require('email-validator');
+
 class User {
   constructor(firstname, lastname, email, birthdate) {
     this.firstname = firstname;
@@ -6,31 +8,18 @@ class User {
     this.birthdate = birthdate;
   }
 
-  isValidEmail() {
-    // Expression régulière pour vérifier le format d'un email
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    // Teste si l'email correspond à l'expression régulière
-    return emailRegex.test(this.email);
-  }
-
-  isValidAge() {
-    const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateFormatRegex.test(this.birthdate)) {
-      return false;
-    }
-
-    const today = new Date();
-    const birthDate = new Date(this.birthdate);
-
-    return today.getFullYear() - birthDate.getFullYear() >= 13;
-  }
-
-  isValidNameOrFirstName() {
-    return this.firstname !== "" && this.lastname !== "";
-  }
 
   isValid() {
-    return this.isValidEmail() && this.isAge() && this.name();
+    const isEmailValid = emailValidator.validate(this.email);
+    const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
+    const isDateValid = dateFormatRegex.test(this.birthdate);
+    const isAgeValid =  new Date().getFullYear() - new Date(this.birthdate).getFullYear() >= 13;
+
+    // Validation des prénoms/noms
+    const isNameValid = this.firstname.trim() !== "" && this.lastname.trim() !== "";
+
+    // Retourne true si toutes les conditions sont satisfaites
+    return isEmailValid && isDateValid && isAgeValid && isNameValid;
   }
 }
 
