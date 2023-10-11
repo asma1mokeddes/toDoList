@@ -1,8 +1,8 @@
 const User = require("../user.js");
 var validator = require("email-validator");
 
-describe("test user email", () => {
-  it.only("Email have the good format", () => {
+describe("test valid user", () => {
+  it.only("Test if a user is valid", () => {
     let user = new User(
       "Asma",
       "MOKEDDES",
