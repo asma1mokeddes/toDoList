@@ -1,6 +1,3 @@
-# Mon Projet
-
-Bienvenue dans le projet Mon Projet. Ce projet fait ceci et cela.
 
 ## Installation
 
