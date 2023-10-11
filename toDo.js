@@ -1,28 +1,53 @@
-class ToDo {
-  constructor() {
-    this.items = [];
-  }
+const Item = require("./item.js");
 
-  canAddItem() {
-    if (this.items.length >= 10) {
-      return false;
+class  ToDo{
+
+   
+
+    constructor() {
+        this.items = [];
     }
-    const isUniqueName = this.items.every(
-      (existingItem) => existingItem.name !== item.name
-    );
+
+    verifyItemType(item) {
+        if( item instanceof Item){
+
+            return true
+        } 
+        return false
+    }
+
+    
+    canAddItem(item) {
+        if (this.items.length >= 10 || !this.verifyItemType(item)) {
+            return false;
+        }
+        
+        const isUniqueName = this.items.every(existingItem => existingItem.name !== item.name);
 
     const isContentValid = item.content.length <= 1000;
 
-    return isUniqueName && isContentValid;
-  }
 
-  add(item) {
-    if (this.canAddItem()) {
-      this.items.push(item);
-    } else {
-      throw new Error("Cannot add item");
+        return isUniqueName && isContentValid;
     }
-  }
+
+    add(item) {
+        if (this.canAddItem(item)) {
+            if (this.items.length === 0) {
+                this.items.push(item);
+            } else {
+                const lastItem = this.items[this.items.length - 1];
+                const timeDifference = item.creationDate - lastItem.creationDate;
+          
+                if (timeDifference >= 30 * 60 * 1000) {
+                  this.items.push(item);
+                } else {
+                    throw new Error("The 30 minute period was not respected.");
+                }
+            }
+        } else {
+            throw new Error("Cannot add item");
+        }
+    }  
 }
 
 module.exports = ToDo;
