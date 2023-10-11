@@ -30,7 +30,7 @@ describe("Test for sending emails", () => {
   });
 });
 describe("test toDo class", () => {
-  it.only("Test if can add item in toDo", () => {
+  it("Test if can add item in toDo", () => {
     let item1 = new Item("Faire exo", "Faire les exos de vueJs", new Date());
     let item2 = new Item("Faire exo", "Faire les exos de vueJs", new Date());
     let item3 = new Item(
@@ -62,12 +62,12 @@ describe("test toDo class", () => {
     expect(toDo3.canAddItem(item1)).toBe(false);
   });
 
-  it.only("Test addItem invalid item", () => {
+  it("Test addItem invalid item", () => {
     let toDo = new ToDo();
     expect(() => toDo.add("faux item")).toThrow(/^Cannot add item.$/);
   });
 
-  it.only("Test addItem valid item", () => {
+  it("Test addItem valid item", () => {
     let toDo = new ToDo();
     let item1 = new Item("Faire exo", "Faire les exos de vueJs", new Date());
 
@@ -76,7 +76,7 @@ describe("test toDo class", () => {
     expect(toDo.items).toContain(item1);
   });
 
-  it.only("Test addItem < 30 minute", () => {
+  it("Test addItem < 30 minute", () => {
     let toDo = new ToDo();
 
     let date = new Date();
@@ -92,7 +92,7 @@ describe("test toDo class", () => {
     );
   });
 
-  it.only("Test addItem > 30 minute", () => {
+  it("Test addItem > 30 minute", () => {
     let toDo = new ToDo();
 
     let date = new Date();

@@ -31,9 +31,7 @@ class ToDo {
         if (this.canAddItem(item)) {
             if (this.items.length === 0) {
                 this.items.push(item);
-                if (this.items.length === 8) {
-                    emailSenderService.send();
-                }
+                return this.items;
             } else {
                 const lastItem = this.items[this.items.length - 1];
                 const timeDifference = (item.creationDate - lastItem.creationDate) / (1000 * 60);
