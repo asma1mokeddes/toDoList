@@ -1,4 +1,5 @@
 const User = require('../user.js');
+var validator = require("email-validator");
 
 describe("test user email", () =>{
 
