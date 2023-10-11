@@ -1,53 +1,50 @@
 const Item = require("./item.js");
 
-class  ToDo{
+class ToDo {
+  constructor() {
+    this.items = [];
+  }
 
-   
+  verifyItemType(item) {
+    if (item instanceof Item) {
+      return true;
+    }
+    return false;
+  }
 
-    constructor() {
-        this.items = [];
+  canAddItem(item) {
+    if (this.items.length >= 10 || !this.verifyItemType(item)) {
+      return false;
     }
 
-    verifyItemType(item) {
-        if( item instanceof Item){
-
-            return true
-        } 
-        return false
-    }
-
-    
-    canAddItem(item) {
-        if (this.items.length >= 10 || !this.verifyItemType(item)) {
-            return false;
-        }
-        
-        const isUniqueName = this.items.every(existingItem => existingItem.name !== item.name);
+    const isUniqueName = this.items.every(
+      (existingItem) => existingItem.name !== item.name
+    );
 
     const isContentValid = item.content.length <= 1000;
 
+    return isUniqueName && isContentValid;
+  }
 
-        return isUniqueName && isContentValid;
-    }
+  add(item) {
+    if (this.canAddItem(item)) {
+      if (this.items.length === 0) {
+        this.items.push(item);
+      } else {
+        const lastItem = this.items[this.items.length - 1];
+        const timeDifference =
+          (item.creationDate - lastItem.creationDate) / (1000 * 60);
 
-    add(item) {
-        if (this.canAddItem(item)) {
-            if (this.items.length === 0) {
-                this.items.push(item);
-            } else {
-                const lastItem = this.items[this.items.length - 1];
-                const timeDifference = item.creationDate - lastItem.creationDate;
-          
-                if (timeDifference >= 30 * 60 * 1000) {
-                  this.items.push(item);
-                } else {
-                    throw new Error("The 30 minute period was not respected.");
-                }
-            }
-        } else {
-            throw new Error("Cannot add item");
+        if (timeDifference >= 30) {
+          this.items.push(item);
+          return this.items;
         }
-    }  
+        throw new Error("The 30 minute period was not respected.");
+      }
+    } else {
+      throw new Error("Cannot add item.");
+    }
+  }
 }
 
 module.exports = ToDo;
