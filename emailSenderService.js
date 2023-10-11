@@ -1,7 +1,5 @@
 class EmailSenderService {
-    constructor() {}
-
-    send() {
+    send(content) {
         throw new Error("Doit envoyer un mail");
     }
 }

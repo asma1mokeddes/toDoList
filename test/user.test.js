@@ -82,3 +82,30 @@ describe("test valid user", () => {
         expect(user.isValid()).toBe(false);
     });
 });
+
+describe("test creation todo", () => {
+    it("Test todoList creation with a valid user who already have a todoList", () => {
+        let user = new User(
+            "Asma",
+            "MOKEDDES",
+            "asmao@pmail.com",
+            new Date().getFullYear() - 40,
+            "Mkdsdsdsds1"
+        );
+        user.todoList = new ToDo();
+        expect(() => user.createTodo()).toThrow(
+            /^Cannot create a Todo. You already have one.$/
+        );
+    });
+
+    it("Test todoList creation with a valid user who doesn't have a todoList", () => {
+        let user = new User(
+            "Asma",
+            "MOKEDDES",
+            "asmao@pmail.com",
+            new Date().getFullYear() - 40,
+            "Mkdsdsdsds1"
+        );
+        expect(user.createTodo()).toBe(true);
+    });
+});
